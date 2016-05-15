@@ -65,5 +65,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>tuto-jms-spring-producer</module>
+		<module>tuto-jms-spring-receiver</module>
 	</modules>
 </project>
