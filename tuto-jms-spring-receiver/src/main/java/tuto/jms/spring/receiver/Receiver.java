@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Receiver {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
-	
-	@JmsListener(destination="mailbox-destination")
+
+	@JmsListener(destination = "mailbox-destination", containerFactory = "jmsContainerFactory")
 	public void reveiveMessage(String message) {
 		LOGGER.info("reveiveMessage: {}", message);
 	}
