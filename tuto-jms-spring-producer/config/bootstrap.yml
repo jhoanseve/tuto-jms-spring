@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: tuto-jms-spring-producer
