@@ -7,4 +7,7 @@ spring:
     
 activemq:
   clientID: tuto-jms-spring-producer
+  queue:
+    textMessage: text-destination
+    objectMessage: object-destination
   

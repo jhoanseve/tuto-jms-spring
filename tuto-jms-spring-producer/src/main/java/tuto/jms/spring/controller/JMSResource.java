@@ -16,9 +16,16 @@ public class JMSResource {
 	private JMSProducer jmsProducer;
 	
 	@RequestMapping(value = "/send")
-	public void sendJMSMessage() {
-		LOGGER.info("Iniciando envio de mensaje JMS...");
+	public void sendTextMessage() {
+		LOGGER.info("Iniciando envio de mensaje TextMessage via JMS...");
 		
-		jmsProducer.send();
+		jmsProducer.sendTextMessage();
+	}
+	
+	@RequestMapping("/send2")
+	public void sendObjectMessge() {
+		LOGGER.info("Iniciando envio de ObjectMessage via JMS...");
+		
+		jmsProducer.sendObjectMessage();
 	}
 }
