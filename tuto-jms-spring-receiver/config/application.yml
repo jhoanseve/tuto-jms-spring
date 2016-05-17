@@ -6,3 +6,8 @@ spring:
     
 activemq:
   clientID: tuto-jms-spring-receiver
+  queue:
+    textMessage: text-destination
+    objectMessage: object-destination
+    
+    

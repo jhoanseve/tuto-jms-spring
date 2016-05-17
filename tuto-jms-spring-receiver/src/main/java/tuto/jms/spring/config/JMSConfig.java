@@ -22,6 +22,7 @@ public class JMSConfig {
         factory.setConnectionFactory(connectionFactory);
         factory.setClientId(clientID);
         System.out.println("clientID: " + clientID);
+        
         return factory;
     }
 }
