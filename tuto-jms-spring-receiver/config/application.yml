@@ -9,5 +9,6 @@ activemq:
   queue:
     textMessage: text-destination
     objectMessage: object-destination
+  trustedPackages: tuto.jms.spring.dto
     
     

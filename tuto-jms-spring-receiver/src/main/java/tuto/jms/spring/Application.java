@@ -11,7 +11,7 @@ import tuto.jms.spring.config.JMSConfig;
 public class Application {
 
 	public static void main(String[] args) {
-		System.setProperty("org.apache.activemq.SERIALIZABLE_PACKAGES","*");
+//		System.setProperty("org.apache.activemq.SERIALIZABLE_PACKAGES","*");
 		SpringApplication.run(Application.class, args);
 	}
 }
