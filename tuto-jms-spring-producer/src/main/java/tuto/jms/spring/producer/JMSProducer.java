@@ -12,6 +12,9 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import tuto.jms.spring.dto.PersonaDTO;
 
 @Component
@@ -26,6 +29,8 @@ public class JMSProducer {
 	
 	@Value("${activemq.queue.objectMessage}")
 	private String queueObjectMessage;
+	
+	private final ObjectMapper objectMapper = new ObjectMapper();
 	
 	
 	public void sendTextMessage() {
@@ -51,7 +56,17 @@ public class JMSProducer {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
 				PersonaDTO persona = new PersonaDTO("123456789", "Pedro", "Perez");
-				return session.createObjectMessage(persona);
+				
+				try {
+					String json = objectMapper.writeValueAsString(persona);
+					LOGGER.info("JSON Persona to send: {}", json);
+
+					return session.createTextMessage(json);
+				} catch (JsonProcessingException e) {
+					LOGGER.error("Error inesperado al intentar enviar convertir Persona en JSON", e);
+				}
+				
+				return null;
 			}
 		};
 
