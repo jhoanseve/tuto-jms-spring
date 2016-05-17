@@ -13,6 +13,11 @@ public class PersonaDTO implements Serializable {
 	private String nombres;
 	private String apellidos;
 	
+
+	public PersonaDTO() {
+		super();
+	}
+
 	public PersonaDTO(String identificacion, String nombres, String apellidos) {
 		super();
 		this.identificacion = identificacion;

@@ -3,12 +3,14 @@ spring:
     broker-url: tcp://127.0.0.1:61616
     user: admin
     password: admin
+
+server:
+  port: 8081
     
 activemq:
   clientID: tuto-jms-spring-receiver
   queue:
     textMessage: text-destination
     objectMessage: object-destination
-  trustedPackages: tuto.jms.spring.dto
     
     
