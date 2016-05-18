@@ -6,24 +6,47 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
-import org.springframework.jms.config.JmsListenerContainerFactory;
-import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.connection.CachingConnectionFactory;
 
 @EnableJms
 @Configuration
 public class JMSConfig {
-	@Value("${activemq.clientID}")
-	private String clientID;
+	@Value("${jms.clientid.queue}")
+	private String clientidQueue;
 	
+	@Value("${jms.clientid.topic}")
+	private String clientidTopic;
 	
-	
-	@Bean // Strictly speaking this bean is not necessary as boot creates a default
-    JmsListenerContainerFactory<?> jmsContainerFactory(ConnectionFactory connectionFactory) {
-        SimpleJmsListenerContainerFactory factory = new SimpleJmsListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory);
-        factory.setClientId(clientID);
-        System.out.println("clientID: " + clientID);
+    
+    @Value("${jms.cache.size}")
+    private int jmsCacheSize;
+    
+    
+    @Bean
+    public DefaultJmsListenerContainerFactory jmsTopicListenerContainerFactory(ConnectionFactory connectionFactory) {
+        CachingConnectionFactory ccf = new CachingConnectionFactory(connectionFactory);
+        ccf.setClientId(clientidTopic);
+        ccf.setSessionCacheSize(jmsCacheSize);
         
-        return factory;
+        DefaultJmsListenerContainerFactory dmlc = new DefaultJmsListenerContainerFactory();
+        dmlc.setPubSubDomain(true);
+        dmlc.setConnectionFactory(ccf);
+        
+        return dmlc;
+    }
+    
+    
+
+    @Bean
+    public DefaultJmsListenerContainerFactory jmsQueueListenerContainerFactory(ConnectionFactory connectionFactory) {
+        CachingConnectionFactory ccf = new CachingConnectionFactory(connectionFactory);
+        ccf.setClientId(clientidQueue);
+        ccf.setSessionCacheSize(jmsCacheSize);
+        
+        DefaultJmsListenerContainerFactory dmlc = new DefaultJmsListenerContainerFactory();
+        dmlc.setConnectionFactory(ccf);
+        
+        return dmlc;
     }
 }

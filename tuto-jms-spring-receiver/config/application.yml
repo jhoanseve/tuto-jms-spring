@@ -7,10 +7,20 @@ spring:
 server:
   port: 8081
     
-activemq:
-  clientID: tuto-jms-spring-receiver
-  queue:
+
+#Propiedades de  configuracion para el Message Broker
+jms:
+  cache:
+    size: 10
+  clientid:
+    topic: tuto-jms-spring-topic
+    queue: tuto-jms-spring-queue
+     
+  topic:
     textMessage: text-destination
+    
+  queue:
     objectMessage: object-destination
+    resendObjectMessaje : resend-object-destination
     
     
